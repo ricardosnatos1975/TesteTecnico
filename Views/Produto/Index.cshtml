@@ -1,0 +1,42 @@
+@model List<Produto>
+
+<h2>Lista de Produtos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Categoria</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Nome</td>
+                <td>@product.Preco</td>
+                <td>@product.Categoria.Nome</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = product.Id })" class="btn btn-primary">Editar</a>
+                    <a href="@Url.Action("Delete", new { id = product.Id })" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create")" class="btn btn-success">Criar Produto</a>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/products",
+            type: "GET",
+            success: function (data) {
+                // Atualizar tabela com os dados retornados pela API
+            }
+        });
+    });
+</script>
